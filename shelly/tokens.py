@@ -1,4 +1,4 @@
-class Tokens:
+class Token:
     def __init__(self):
         return
 
@@ -6,16 +6,31 @@ class Tokens:
         return ''.join(map(str, [self.__class__.__name__, ': ', self.tok]))
 
 
-class Brases(Tokens):
+class Quote(Token):
     def __init__(self, tok):
         self.tok = tok
 
 
-class Numeral(Tokens):
+class Brase(Token):
     def __init__(self, tok):
         self.tok = tok
 
 
-class Symbol(Tokens):
+class Numeral(Token):
+    def __init__(self, tok):
+        self.tok = tok
+
+
+class String(Token):
+    def __init__(self, tok):
+        self.tok = tok
+
+
+class Symbol(Token):
+    def __init__(self, tok):
+        self.tok = tok
+
+
+class Expansion(Token):
     def __init__(self, tok):
         self.tok = tok
