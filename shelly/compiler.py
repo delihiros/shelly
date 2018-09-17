@@ -67,6 +67,10 @@ class Compiler:
                 return
             elif first.value == '>':
                 return
+            elif first.value == '|>':
+                return
+            elif first.value == '<|':
+                return
             elif first.value == '=':
                 return
             elif first.value == '!=':
