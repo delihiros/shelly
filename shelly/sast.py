@@ -14,3 +14,18 @@ class List(AST):
 class String(AST):
     def __init__(self, value):
         self.value = value
+
+
+class Numeral(AST):
+    def __init__(self, value):
+        self.value = value
+
+
+class Expansion(AST):
+    def __init__(self, value):
+        self.value = value
+
+
+class Symbol(AST):
+    def __init__(self, value):
+        self.value = value

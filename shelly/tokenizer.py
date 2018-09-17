@@ -55,6 +55,7 @@ class Tokenizer:
                     while index < max_index and not is_space(string[index]) and string[index] not in '()[]':
                         sym += string[index]
                         index += 1
+                    sym = sym.strip('$').strip('{').rstrip('}')
                     toks.append(tokens.Expansion(sym))
                 else:
                     while index < max_index and is_smallalpha(string[index]) or is_bigalpha(string[index]) or is_num(string[index]) or is_special_char(string[index]):
