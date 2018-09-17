@@ -6,6 +6,11 @@ class AST:
         return ''.join(map(str, [self.__class__.__name__, ': ', self.value]))
 
 
+class Program(AST):
+    def __init__(self, value):
+        self.value = value
+
+
 class List(AST):
     def __init__(self, value):
         self.value = value

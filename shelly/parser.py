@@ -25,7 +25,12 @@ class Parser:
 
     def parse(self, toks):
         self.stream = ParseStream(toks)
-        return self.parse_stream()
+        v = []
+        while True:
+            v.append(self.parse_stream())
+            if len(self.stream.rest) == 0:
+                break
+        return sast.Program(v)
 
     def parse_stream(self):
         v = None

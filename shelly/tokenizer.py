@@ -39,6 +39,8 @@ class Tokenizer:
         while index < max_index:
             while index < max_index and is_space(string[index]):
                 index += 1
+            if index >= max_index:
+                break
 
             if is_brase(string[index]):
                 toks.append(tokens.Brase(string[index]))
