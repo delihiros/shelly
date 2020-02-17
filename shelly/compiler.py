@@ -22,17 +22,28 @@ class Compiler:
             shell = self.compile_list(ast, depth)
         return shell
 
-    def compile_list(ast, depth):
+    def compile_list(self, ast, depth):
         first = ast.value[0]
         rest = ast.value[1:]
 
         if isinstance(first, sast.Symbol):
             if first.value == 'define':
-                return
+                token = self.compile(rest[0])
+                value = self.compile(rest[1])
+                if isinstance(rest[1], sast.List):
+                    pass # need to expand and evaluate recursive
+                return token + '=' + value + '\n'
             elif first.value == 'defmacro':
                 return
             elif first.value == 'if':
-                return
+                test = self.compile(rest[0])
+                tru = self.compile(rest[1])
+                fal = self.compile(rest[2])
+                return 'if [ ' + test + ' ]; then\n' \
+                        + tru \
+                        + '\nelse\n' \
+                        + fal \
+                        + '\nfi\n'
             elif first.value == 'case':
                 return
             elif first.value == 'while':
@@ -81,6 +92,28 @@ class Compiler:
                 return
             elif first.value == 'rest':
                 return
-            return
-
+            else:
+                return self.compile(first) + ' ' \
+                        + ' '.join([self.compile(option) for option in rest]) \
+                        + '\n'
         return
+
+
+
+def __main__():
+    import tokenizer
+    import parser
+    t = tokenizer.Tokenizer()
+    p = parser.Parser()
+    c = Compiler()
+    shelly = '(define hello\n  (ls -l))'
+    tokens = t.tokenize('(hello\n  (option1)\n        option2 -l $HOME)')
+    tokens = t.tokenize(shelly)
+    print(shelly)
+    asts = p.parse(tokens)
+    print(asts)
+    shell = c.compile(asts)
+    print(shell)
+
+if __name__ == '__main__':
+    __main__()

@@ -96,6 +96,7 @@ def __main__():
     t = tokenizer.Tokenizer()
     p = Parser()
     tokens = t.tokenize('(hello\n  (option1)\n        option2 -l $HOME)')
+    tokens = t.tokenize('(define hello\n  (ls -l))')
     asts = p.parse(tokens)
     print(asts)
 
